@@ -23,6 +23,9 @@ public class GameActivity extends Activity {
     private TextView scoreView;
     private TextView bestView;
     private SharedPreferences prefs;
+    private int lastScore = -1;
+    private int lastBest = -1;
+    private boolean showDialogOnResume = false;
 
     @Override
     protected void onCreate(Bundle b) {
@@ -137,6 +140,8 @@ public class GameActivity extends Activity {
             @Override
             public void onGameOver(int score, int best) {
                 runOnUiThread(() -> {
+                    lastScore = score;
+                    lastBest = best;
                     bestView.setText(String.valueOf(best));
                     showGameOver(score, best);
                 });
@@ -145,6 +150,15 @@ public class GameActivity extends Activity {
 
         root.addView(gameView);
         setContentView(root);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (showDialogOnResume && lastScore >= 0) {
+            showDialogOnResume = false;
+            showGameOver(lastScore, lastBest);
+        }
     }
 
     private void editName() {
@@ -246,8 +260,8 @@ public class GameActivity extends Activity {
         lp3.setMargins(0, 10, 0, 10);
         leaderboard.setLayoutParams(lp3);
         leaderboard.setOnClickListener(v -> {
+            showDialogOnResume = true;
             dialog.dismiss();
-            gameView.newGame();
             startActivity(new Intent(this, LeaderboardActivity.class));
         });
         content.addView(leaderboard);
