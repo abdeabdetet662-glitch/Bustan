@@ -468,6 +468,7 @@ public class GameView extends View {
         refreshTrayIfEmpty();
         if (!hasAnyMove()) {
             saveBest();
+            saveScoreToFirebase();
             if (listener != null) listener.onGameOver(score, best);
         }
     }
