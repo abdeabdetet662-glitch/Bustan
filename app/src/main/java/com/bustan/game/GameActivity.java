@@ -247,6 +247,7 @@ public class GameActivity extends Activity {
         leaderboard.setLayoutParams(lp3);
         leaderboard.setOnClickListener(v -> {
             dialog.dismiss();
+            gameView.newGame();
             startActivity(new Intent(this, LeaderboardActivity.class));
         });
         content.addView(leaderboard);
