@@ -544,6 +544,17 @@ public class GameView extends View {
         floatingTexts.add(ft);
     }
 
+    private void refreshTrayIfEmpty() {
+        boolean allUsed = true;
+        for (int i = 0; i < 3; i++) if (!trayUsed[i]) { allUsed = false; break; }
+        if (allUsed) {
+            for (int i = 0; i < 3; i++) {
+                tray[i] = BlockCatalog.getRandom();
+                trayUsed[i] = false;
+            }
+        }
+    }
+
     private boolean hasAnyMove() {
         for (int i = 0; i < 3; i++) {
             if (trayUsed[i] || tray[i] == null) continue;
