@@ -567,6 +567,17 @@ public class GameView extends View {
         return false;
     }
 
+    private void saveScoreToFirebase() {
+        try {
+            String name = getContext().getSharedPreferences("bustan", Context.MODE_PRIVATE)
+                    .getString("playerName", "لاعب");
+            FirebaseManager.get().saveScore(name, score, new FirebaseManager.OnDone() {
+                @Override public void onSuccess() {}
+                @Override public void onError(String msg) {}
+            });
+        } catch (Exception e) {}
+    }
+
     private void saveBest() {
         if (score > best) {
             best = score;
