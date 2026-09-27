@@ -24,12 +24,18 @@ jobs:
           yes | $SDK/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
           yes | $SDK/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" > /dev/null 2>&1 || true
 
+      - name: Download Keystore from Releases
+        run: |
+          curl -L -o ummah-release.keystore \
+            https://github.com/abdeabdetet662-glitch/Bustan/releases/download/v1.0-keystore/ummah-release.keystore
+
+      - name: Verify Keystore
+        run: |
+          ls -la ummah-release.keystore
+          file ummah-release.keystore
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-
-      - name: Decode Keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > ummah-release.keystore
 
       - name: Build Release APK
         run: ./gradlew assembleRelease --no-daemon --stacktrace
