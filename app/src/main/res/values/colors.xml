@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="desert_sand">#E6C88C</color>
+    <color name="deep_gold">#D4AF37</color>
+    <color name="palm_green">#0B4F2C</color>
+    <color name="night_sky">#0A0A0A</color>
+    <color name="sunset_orange">#FF6D00</color>
+    <color name="white">#FFFFFF</color>
+</resources>
